@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -8,15 +8,13 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LoginComponent {
   user = { username: '', password: '' };
-  apiUrl = 'http://localhost:8080/auth/login';
 
-  constructor(private http: HttpClient) { }
+  constructor(private authService: AuthService) { }
 
   login() {
-    this.http.post(this.apiUrl, this.user).subscribe(
+    this.authService.login(this.user).subscribe(
       (response: any) => {
         console.log('Inicio de sesión exitoso:', response.message);
-
       },
       (error) => {
         console.error('Error en el inicio de sesión:', error);
