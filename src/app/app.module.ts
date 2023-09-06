@@ -10,6 +10,7 @@ import { NavComponent } from './shared/nav/nav.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { AddExpenseComponent } from './pages/add-expense/add-expense.component';
 import { AllExpensesComponent } from './pages/all-expenses/all-expenses.component';
+import { LoginComponent } from './pages/login/login.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { AllExpensesComponent } from './pages/all-expenses/all-expenses.componen
     HeaderComponent,
     AddExpenseComponent,
     AllExpensesComponent,
+    LoginComponent,
 
   ],
   imports: [

@@ -28,4 +28,9 @@ export class ExpenseService {
   getCategorys(): Observable<Category[]> {
     return this.http.get<Category[]>(`${this.baseUrl}/category/all`);
   }
+
+  deleteExpense(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/expense/delete/${id}`);
+  }
+
 }
