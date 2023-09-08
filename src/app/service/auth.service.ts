@@ -17,11 +17,14 @@ export class AuthService {
 
    // Función para establecer el ID del usuario
    setUserId(userId: number): void {
-    this.userId = userId;
+    localStorage.setItem('userId', userId.toString());
   }
+  
 
   // Función para obtener el ID del usuario
-  getUserId(): number | null {
-    return this.userId;
+  getUserIdFromLocalStorage(): number | null {
+    const userId = localStorage.getItem('userId');
+    return userId ? parseInt(userId, 10) : null;
   }
+  
 }
