@@ -11,6 +11,8 @@ import { HeaderComponent } from './shared/header/header.component';
 import { AddExpenseComponent } from './pages/add-expense/add-expense.component';
 import { AllExpensesComponent } from './pages/all-expenses/all-expenses.component';
 import { LoginComponent } from './pages/login/login.component';
+import { HomeComponent } from './pages/home/home.component';
+
 
 
 @NgModule({
@@ -22,6 +24,8 @@ import { LoginComponent } from './pages/login/login.component';
     AddExpenseComponent,
     AllExpensesComponent,
     LoginComponent,
+    HomeComponent
+
 
   ],
   imports: [

@@ -19,16 +19,18 @@ export class ExpenseService {
     return this.http.post<Expense>(`${this.baseUrl}/expense/add?categoryId=${categoryId}`, expense);
   }
 
+  // Traer gasto por categoria
   getExpensesByCategory(categoryId: number): Observable<any> {
     const url = `${this.baseUrl}/expense/find/bycategory/${categoryId}`;
     return this.http.get(url);
   }
 
-  
+  //Traer categorias
   getCategorys(): Observable<Category[]> {
     return this.http.get<Category[]>(`${this.baseUrl}/category/all`);
   }
 
+  //Borrar un gasto
   deleteExpense(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/expense/delete/${id}`);
   }
