@@ -15,12 +15,20 @@ export class ExpenseService {
   constructor(private http: HttpClient) {}
 
   addExpense(expense: Expense, categoryId: number): Observable<Expense> {
-    // Agrega el categoryId como parámetro en la solicitud POST
-    return this.http.post<Expense>(`${this.baseUrl}/expense/add?categoryId=${categoryId}`, expense);
+    // Agrega el user_id al objeto expense antes de enviarlo
+    expense.category.id = categoryId;
+    
+    return this.http.post<Expense>(`${this.baseUrl}/expense/add`, expense);
   }
+
+ // Método para obtener los gastos de un usuario y una categoría específicos
+ getExpensesByUserAndCategory(userId: number, categoryId: number): Observable<Expense[]> {
+  return this.http.get<Expense[]>(`${this.baseUrl}/findby/user/${userId}/category/${categoryId}`);
+}
 
   // Traer gasto por categoria
   getExpensesByCategory(categoryId: number): Observable<any> {
+    
     const url = `${this.baseUrl}/expense/find/bycategory/${categoryId}`;
     return this.http.get(url);
   }
