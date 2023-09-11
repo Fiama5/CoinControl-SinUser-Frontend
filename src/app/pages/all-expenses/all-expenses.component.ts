@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Category } from 'src/app/model/category';
 import { Expense } from 'src/app/model/expense';
 import { ExpenseService } from 'src/app/service/expense.service';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-all-expenses',
@@ -11,12 +12,15 @@ import { ExpenseService } from 'src/app/service/expense.service';
 export class AllExpensesComponent {
 
   categoryExpensesMap: { [key: number]: Expense[] } = {};
-  expandedCategories: { [key: number]: boolean } = {}; //Expandir tarjeta
+  expandedCategories: { [key: number]: boolean } = {};
   categories: Category[] = [];
 
-  constructor(private expenseService: ExpenseService) {}
+  constructor(private expenseService: ExpenseService,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
+
     this.loadCategories();
   }
 
@@ -33,12 +37,18 @@ export class AllExpensesComponent {
   }
 
   loadExpensesByCategory(categoryId: number) {
-    // Llama al servicio para cargar los gastos relacionados con la categoría
-    this.expenseService.getExpensesByCategory(categoryId).subscribe((expenses) => {
-      this.categoryExpensesMap[categoryId] = expenses;
-    });
-  }
+    const userId = this.authService.getUserIdFromLocalStorage();
 
+    if (userId !== null) {
+      this.expenseService.getExpensesByUserAndCategory(userId, categoryId).subscribe((expenses) => {
+        this.categoryExpensesMap[categoryId] = expenses;
+      });
+    } else {
+      // Manejar el caso en el que userId es null
+
+      this.categoryExpensesMap[categoryId] = [];
+    }
+  }
 
   // Función para eliminar un gasto
   deleteExpense(id: number) {
@@ -49,9 +59,9 @@ export class AllExpensesComponent {
       });
     }
   }
+  //Funcion para desplegar la lista de gastos de una categoria
+  toggleCategory(categoryId: number) {
+    this.expandedCategories[categoryId] = !this.expandedCategories[categoryId];
 
-      //Funcion para desplegar la lista de gastos de una categoria
-      toggleCategory(categoryId: number) {
-        this.expandedCategories[categoryId] = !this.expandedCategories[categoryId];
-  
-} }
+  }
+}

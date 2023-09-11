@@ -20,8 +20,8 @@ export class AddExpenseComponent implements OnInit {
       id: 0,
       name: ''
     },
-    user: { 
-      id: 0, 
+    user: {
+      id: 0,
       username: '',
       password: '',
       name: '',
@@ -35,7 +35,7 @@ export class AddExpenseComponent implements OnInit {
   constructor(
     private expenseService: ExpenseService,
     private authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // Llamar al servicio para obtener la lista de categorías
@@ -53,7 +53,7 @@ export class AddExpenseComponent implements OnInit {
   submitForm() {
     const categoryId = this.selectedCategoryId; // Se Obtiene el categoryId de la lista desplegable
 
-//Imprime los datos que se enviarian por la consola del browser
+    //Imprime los datos que se enviarian por la consola del browser
     console.log('Datos a enviar:', this.expense);
 
     this.expenseService.addExpense(this.expense, categoryId).subscribe(() => {
